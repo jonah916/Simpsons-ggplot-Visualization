@@ -1,6 +1,6 @@
 ---
 title: "Project #2 - Data Visualization with the Simpsons"
-author: "Jonah Wiener-Brodkey (w/ Kian Carson)"
+author: "Jonah Wiener-Brodkey"
 date: "May 17, 2019"
 output: html_document
 ---
@@ -41,36 +41,3 @@ viewsbyseason <- ggplot(simps, aes(x = season, y = us_viewers_in_millions/n, fil
         plot.title = element_text(size = 18))
 viewsbyseason
 ```
-
-***
-
-# 2) The Write-Up
-
-  My graphic shows the average U.S. viewership and rating of episodes of "The Simpsons" by season. It suggests that over time, "The Simpsons" lost viewers and saw its IMDB ratings decline. The average viewership and average rating are not perfectly correlated, but they follow similar trends overall. The average viewership was at a maximum in Season 1, declined for 11 seasons, saw a temporary resurgence around season 12, and finally continued to gradually decline through Season 28. Average ratings followed a similar pattern: the maximum average rating occurred in Season 5 before gradually declining through Season 28.  
-  I represented this data in a bar chart so that each bar would represent a different season, the height of each bar would represent the average U.S. viewership of each episode in that season, and the color of each bar would represent the average IMDB rating of episodes in that season. This way, the graphic would show the clear downward trend in both average viewership and rating. Using a bar chart required treating the variable "season" as a factor, since geom_col() prefers discrete x-variables. To display a season's *average* viewership on the y-axis, I divided the variable "us_viewers_in_millions" by n, a variable I created containing the number of episodes in each season. For the fill of each bar, I created a new variable, season_avg, which contains the average of the variable "imdb_rating", grouped by "season". Using the package RColorBrewer, I denoted highly rated seasons with shades of green and poorly rated seasons with shades of red. Finally, I included tick marks on the x-axis for all 28 seasons because the graphic says something unique about every season; I only incuded tick marks in increments of 5 on the y-axis because the *exact* value of each season's average viewership is less important than the *general trend* the values show.
-  
-***  
-  
-# 3) The Open-Ended Questions
-#### a. Additional Data
-I would add data that would help us better understand "The Simpsons" viewership over time. For instance, if we had a column called "DVR_viewers_in_millions" containing the number of viewers, in millions, who recorded each episode and watched later, we could estimate how much of the apparent decline in viewership is due to audiences not watching in real time. This column would contain numeric values, e.g. 10-25 (million viewers). This data could be provided by cable companies or providers of DVR boxes. Similarly, a column containing the number of viewers, in millions, who streamed each episode from a private service would help us see whether the decline in TV viewership is coupled with an increase in online "Simpsons" streams. Called "stream_viewers_in_millions", this column would contain numeric values, e.g. 10-25 (million streams). Streaming companies like Netflix and Hulu could provide their viewership numbers. To relate the decline in "Simpsons" viewership to overall TV viewership trends, we could use data on the total number of general TV viewers in the US, in millions, at the time each season aired. We could call this column "total_TV_viewers", and it would contain numeric values, e.g. 150-250 (million viewers). We could easily get this data from Nielsen, or any other major market research firm.
-        
-#### b. Additional Questions
-We could use this new data to ask deeper questions about the decline in "Simpsons" viewership. For instance, with the data on DVR viewers and online streamers, we could ask: is the decline in viewership of "The Simpsons" as drastic when DVR viewers and streamers are accounted for? In other words, is "Simpsons" viewership *really* declining, or are traditional TV viewers just flocking to alternative methods of watching? We could investigate this by adding the two new variables to the existing variable "us_viewers_in_millions" to create a new variable, "total_simpsons_viewers_in_millions". Also, we could use the data on overall TV viewership during each season to ask: is the decline in viewership of "The Simpsons" part of a general decline in TV viewership, or has "Simpsons" viewership declined in spite of stability or even *growth* in overall TV viewership? We could easily create a trendline for this data, which we could dislay on the same graphic I constructed in this lab. By adding a second y-axis on the right displaying total TV viewership, we would be able to compare the trends in overall TV viewership with the trends in viewership of "The Simpsons".
-    
-#### c. Picture
-
-!["Simpsons" viewership and rating by season, compared with general trends in TV viewership over time](Project2NewGraph.jpg)
-
-***
-# Extra Credit Pseudocode
-1. Group total_tv_viewers by season.
-    + The value of total_tv_viewers should be the same for all episodes in Season 1, all episodes in Season 2, and so on.
-2. Create graph **g** containing the graphic I created for this lab.
-3. Add a geom_smooth() with x = season and y = total_tv_viewers.
-    + Add scale_color_manual()
-        + Make the line blue.
-    + Add a second y-axis on the right to display values for total_tv_viewers.
-        + Use scale_y_continuous() and sec_axis().
-        + Make the right y-axis values the proper multiples of the left y-axis values so as to create a 1:1 transformation between the two axes.
-            + i.e. where the left says 10, the right says 100; where the left says 50, the right says 500; etc.
